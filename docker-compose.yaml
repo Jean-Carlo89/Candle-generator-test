@@ -1,0 +1,26 @@
+version: "3.2"
+
+services:
+   rabbitmq-bit:
+    image: rabbitmq:3-management-alpine
+    container_name: "rabbitmq"
+    restart: always
+    ports: 
+        - "5672:5672"
+        - "15672:15672"
+   
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/
+      - rabbitmq_log:/var/log/rabbitmq/
+    environment: 
+        - RABBITMQ_DEFAULT_PASS=123456
+        - RABBITMQ_DEFAULT_USER=admin
+    networks:
+      - rabbitmq_go_net
+
+volumes:
+    rabbitmq_data:
+    rabbitmq_log:
+networks:
+  rabbitmq_go_net:
+      driver: bridge
